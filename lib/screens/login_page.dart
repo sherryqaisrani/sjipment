@@ -3,13 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sjipment/screens/home_page.dart';
 import 'package:sjipment/utils/file_path.dart';
 
 class Login extends StatefulWidget {
   final loginAction;
   final String? loginError;
+  final bool? isLoggedIn;
 
-  const Login(this.loginAction, this.loginError);
+  const Login(
+    this.loginAction,
+    this.loginError,
+    this.isLoggedIn,
+  );
 
   @override
   State<Login> createState() => _LoginState();
@@ -20,7 +26,16 @@ class _LoginState extends State<Login> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5), finished);
+    if (widget.isLoggedIn == false) {
+      Timer(Duration(seconds: 5), finished);
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+    }
   }
 
   void finished() {

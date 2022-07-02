@@ -41,8 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ? CircularProgressIndicator()
             : isLoggedIn
                 ? Profile(
-                    logoutAction: logoutAction, name: name, picture: picture)
-                : Login(loginAction, errorMessage),
+                    logoutAction: logoutAction,
+                    name: name!.split('@').first,
+                    picture: picture)
+                : Login(loginAction, errorMessage, isLoggedIn),
       ),
     );
   }
@@ -71,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> loginAction() async {
     setState(() {
-      isBusy = true;
+      isBusy = false;
       errorMessage = '';
     });
 
@@ -95,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         isBusy = false;
-        isLoggedIn = true;
+        isLoggedIn = false;
         name = idToken['name'];
         picture = profile['picture'];
       });
