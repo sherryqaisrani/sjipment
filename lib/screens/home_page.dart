@@ -7,8 +7,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sjipment/screens/login_page.dart';
 import 'package:sjipment/screens/profile_page.dart';
 
-final FlutterAppAuth appAuth = FlutterAppAuth();
-final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+const FlutterAppAuth appAuth = FlutterAppAuth();
+const FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
 //  ------------------------------
 ///     Auth Variables
