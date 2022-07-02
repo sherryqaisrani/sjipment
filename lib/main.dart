@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sjipment/screens/login_page.dart';
-import 'package:sjipment/screens/signup_page.dart';
+import 'package:sjipment/screens/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: SignUp(),
+      child: HomeScreen(),
     );
   }
 }
