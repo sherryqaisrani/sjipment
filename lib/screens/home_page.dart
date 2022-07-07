@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoggedIn = false;
   String? errorMessage;
   String? name;
+  String? email;
   String? picture;
 
   @override
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? Profile(
                     logoutAction: logoutAction,
                     name: name!.split('@').first,
+                    email: email,
                     picture: picture)
                 : Login(loginAction, errorMessage, isLoggedIn),
       ),
@@ -97,8 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         isBusy = false;
-        isLoggedIn = false;
+        isLoggedIn = true;
         name = idToken['name'];
+        email = profile['email'];
         picture = profile['picture'];
       });
     } catch (e, s) {
@@ -113,10 +116,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void logoutAction() async {
     await secureStorage.delete(key: 'refresh_token');
+
     setState(() {
       isLoggedIn = false;
       isBusy = false;
     });
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   @override
@@ -142,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ));
 
       final idToken = parseIdToken(response!.idToken.toString());
-      final profile = await getUserDetails(response!.accessToken.toString());
+      final profile = await getUserDetails(response.accessToken.toString());
 
       secureStorage.write(key: 'refresh_token', value: response.refreshToken);
 
@@ -150,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
         isBusy = false;
         isLoggedIn = false;
         name = idToken['name'];
+        email = profile['email'];
         picture = profile['picture'];
       });
     } catch (e, s) {
